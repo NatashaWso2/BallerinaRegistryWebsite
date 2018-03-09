@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Nav from './Nav'
 
 export default class Packages extends React.PureComponent {
   constructor (props) {
@@ -51,7 +50,6 @@ export default class Packages extends React.PureComponent {
     return (
       <div>
         <div>
-          <Nav />
           {this.props.children}
           <br/>
           {this.state.cliToken != undefined &&

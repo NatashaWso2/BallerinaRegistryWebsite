@@ -7,51 +7,7 @@ export default class OrgName extends React.PureComponent {
   constructor (props) {
     super(props)
     this.state = {
-      packages: [
-        {
-          id: '001',
-          orgName: 'natasha',
-          packageName: 'foo-bar',
-          version: '1.0.0',
-          description: 'This is the foo-bar package'
-        },
-        {
-          id: '002',
-          orgName: 'natasha',
-          packageName: 'foo-bar',
-          version: '2.0.0',
-          description: 'This is the foo-bar package'
-        },
-        {
-          id: '012',
-          orgName: 'natasha',
-          packageName: 'string-utils',
-          version: '2.0.3',
-          description: 'This is the string-utils' +
-          ' package'
-        },
-        {
-          id: '032',
-          orgName: 'natasha',
-          packageName: 'math.utils',
-          version: '1.0.5',
-          description: 'This is the math.utils package'
-        },
-        {
-          id: '101',
-          orgName: 'manu',
-          packageName: 'file-api',
-          version: '1.2.0',
-          description: 'This is the file-api package'
-        },
-        {
-          id: '211',
-          orgName: 'manu',
-          packageName: 'toml-parser',
-          version: '0.9.8',
-          description: 'This is the toml-parser package'
-        }
-      ],
+      packages: [],
       accessTokenExpired: false
     }
     this.deletePkg = this.deletePkg.bind(this)
@@ -66,7 +22,7 @@ export default class OrgName extends React.PureComponent {
       })
       .then((response) => {
         const accessTokenActive = response.data.active;
-        if (accessTokenActive == true) {
+        if (accessTokenActive === true) {
           const items = this.state.packages
           items.map((element, index) => {
             if (packageName === element.packageName) {

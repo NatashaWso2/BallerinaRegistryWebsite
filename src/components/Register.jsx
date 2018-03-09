@@ -1,8 +1,9 @@
 import React from 'react'
 import axios from 'axios'
 import { Redirect } from "react-router-dom";
+import { Row, Col, FormGroup, ControlLabel, FormControl, Button, HelpBlock } from 'react-bootstrap';
 
-export default class Register extends React.PureComponent {
+class Register extends React.PureComponent {
   constructor (props) {
     super(props)
     this.state = {
@@ -15,7 +16,12 @@ export default class Register extends React.PureComponent {
       redirect: false
     }
 
-    this.handleInputChange = this.handleInputChange.bind(this)
+    this.onFamilyNameChange = this.onFamilyNameChange.bind(this);
+    this.onGivenNameChange = this.onGivenNameChange.bind(this);
+    this.onUserNameChange = this.onUserNameChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
+    this.onHomeEmailChange = this.onHomeEmailChange.bind(this);
+    this.onWorkEmailChange = this.onWorkEmailChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this)
   }
 
@@ -48,14 +54,40 @@ export default class Register extends React.PureComponent {
       })
   }
 
-  handleInputChange (event) {
-    const target = event.target
-    const value = target.type === 'checkbox' ? target.checked : target.value
-    const name = target.name
-
+  onFamilyNameChange (e) {
     this.setState({
-      [name]: value
-    })
+      familyName: e.target.value,
+    });
+  }
+
+  onGivenNameChange(e) {
+    this.setState({
+      givenName: e.target.value,
+    });
+  }
+
+  onUserNameChange(e) {
+    this.setState({
+      userName: e.target.value,
+    });
+  }
+
+  onPasswordChange(e) {
+    this.setState({
+      password: e.target.value,
+    });
+  }
+
+  onHomeEmailChange(e) {
+    this.setState({
+      homeEmail: e.target.value,
+    });
+  }
+
+  onWorkEmailChange(e) {
+    this.setState({
+      workEmail: e.target.value,
+    });
   }
 
   render () {
@@ -64,57 +96,79 @@ export default class Register extends React.PureComponent {
       return <Redirect to='/login' />;
     }
     return (
-      <form onSubmit={this.onSubmit}>
-        <label>
-          Family Name:
-          <input
-            name="familyName"
-            type="text"
-            value={this.state.familyName}
-            onChange={this.handleInputChange}/>
-        </label> <br/> <br/>
-        <label>
-          Name:
-          <input
-            name="givenName"
-            type="text"
-            value={this.state.givenName}
-            onChange={this.handleInputChange}/>
-        </label> <br/> <br/>
-        <label>
-          UserName:
-          <input
-            name="userName"
-            type="text"
-            value={this.state.userName}
-            onChange={this.handleInputChange}/>
-        </label> <br/> <br/>
-        <label>
-          Password:
-          <input
-            name="password"
-            type="password"
-            value={this.state.password}
-            onChange={this.handleInputChange}/>
-        </label> <br/> <br/>
-        <label>
-          Home Email:
-          <input
-            name="homeEmail"
-            type="text"
-            value={this.state.homeEmail}
-            onChange={this.handleInputChange}/>
-        </label> <br/> <br/>
-        <label>
-          WorkvEmail:
-          <input
-            name="workEmail"
-            type="text"
-            value={this.state.workEmail}
-            onChange={this.handleInputChange}/>
-        </label> <br/> <br/>
-        <button type="submit">Register</button>
-      </form>
+        <Row>
+          <Col xs={8} md={8}>
+            <form>
+                <FieldGroup
+                  key="family-name"
+                  id="formControlsText"
+                  type="text"
+                  label="Family Name"
+                  placeholder="Enter Family"
+                  value={this.state.familyName}
+                  onChange={this.onFamilyNameChange}
+                />
+                <FieldGroup
+                  key="given-name"
+                  id="formControlsText"
+                  type="text"
+                  label="Name"
+                  placeholder="Enter Name"
+                  value={this.state.givenName}
+                  onChange={this.onGivenNameChange}
+                />
+                <FieldGroup
+                  key="user-name"
+                  id="formControlsText"
+                  type="text"
+                  label="Username"
+                  placeholder="Enter Username"
+                  value={this.state.userName}
+                  onChange={this.onUserNameChange}
+                />
+                <FieldGroup
+                  key="password"
+                  id="formControlsText"
+                  type="password"
+                  label="Password"
+                  placeholder="Enter Password"
+                  value={this.state.password}
+                  onChange={this.onPasswordChange}
+                />
+                <FieldGroup
+                  key="home-email"
+                  id="formControlsText"
+                  type="text"
+                  label="Home Email"
+                  placeholder="Enter Home Email"
+                  value={this.state.homeEmail}
+                  onChange={this.onHomeEmailChange}
+                /> 
+                <FieldGroup
+                  key="work-email"
+                  id="formControlsText"
+                  type="text"
+                  label="Work Email"
+                  placeholder="Enter Work Email"
+                  value={this.state.workEmail}
+                  onChange={this.onWorkEmailChange}
+                /> 
+                <Button type="submit" onSubmit={this.onSubmit}>Register</Button>
+              </form>
+          </Col>
+        </Row>
     )
   }
 }
+
+function FieldGroup({ id, label, help, ...props }) {
+  return (
+    <FormGroup controlId={id}>
+      <ControlLabel>{label}</ControlLabel>
+      <FormControl {...props} />
+      {help && <HelpBlock>{help}</HelpBlock>}
+    </FormGroup>
+  );
+}
+
+export default Register;

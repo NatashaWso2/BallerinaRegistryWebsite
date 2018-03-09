@@ -1,17 +1,13 @@
 import React from 'react';
-import Nav from './Nav';
+import { Grid, Row, Col } from 'react-bootstrap';
+import NavBar from './NavBar';
 
 export default class Container extends React.PureComponent {
-  constructor (props) {
-    super(props)
-  }
-
   render () {
     return (
-      <div>
-        <Nav />
+      <Grid>
         {this.props.children}
-      </div>
+      </Grid>
     )
   }
 }

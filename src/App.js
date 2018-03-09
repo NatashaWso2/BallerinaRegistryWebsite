@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { Grid } from 'react-bootstrap';
+import NavBar from './components/NavBar';
 import Login from './components/Login';
 import Packages from './components/Packages';
 import Container from './components/Container';
@@ -13,17 +15,20 @@ class App extends Component {
     return (
       <Router>
         <div>
-        <Switch>
-        <Route exact path='/' component={Container} />
-          <Route path='/login' component={Login} />
-          <Route path='/register' component={Register} />
-        <Route exact path='/packages' component={Packages}/>
-          <Switch>
-          <Route path="/packages/:orgName/:packageName/:version" component={Package}/>
-          <Route path="/packages/:orgName" component={OrgName}/>
-          </Switch>
-        <Route path='*' component={NotFound} />
-        </Switch>
+          <NavBar />
+          <Grid> 
+            <Switch>
+            <Route exact path='/' component={Container} />
+            <Route path='/login' component={Login} />
+            <Route path='/register' component={Register} />
+            <Route exact path='/packages' component={Packages}/>
+            <Switch>
+              <Route path="/packages/:orgName/:packageName/:version" component={Package}/>
+              <Route path="/packages/:orgName" component={OrgName}/>
+            </Switch>
+            <Route path='*' component={NotFound} />
+            </Switch>
+          </Grid>
         </div>
       </Router>
     )

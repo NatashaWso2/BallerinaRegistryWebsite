@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 import Cookies from 'universal-cookie'
+import { Row, Col, FormGroup, ControlLabel, FormControl, Button, HelpBlock } from 'react-bootstrap';
 
 export default class Login extends React.PureComponent {
   constructor (props) {
@@ -12,7 +13,8 @@ export default class Login extends React.PureComponent {
       redirect: false,
       cliToken: ''
     }
-    this.handleInputChange = this.handleInputChange.bind(this)
+    this.onUserNameChange = this.onUserNameChange.bind(this)
+    this.onPasswordChange = this.onPasswordChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
   }
 
@@ -49,14 +51,16 @@ export default class Login extends React.PureComponent {
       })
   }
 
-  handleInputChange (event) {
-    const target = event.target
-    const value = target.type === 'checkbox' ? target.checked : target.value
-    const name = target.name
-
+  onUserNameChange(e) {
     this.setState({
-      [name]: value
-    })
+      userName: e.target.value,
+    });
+  }
+
+  onPasswordChange(e) {
+    this.setState({
+      password: e.target.value,
+    });
   }
 
   render () {
@@ -69,25 +73,41 @@ export default class Login extends React.PureComponent {
 
     }
     return (
-      <form onSubmit={this.onSubmit}>
-        <label>
-          UserName:
-          <input
-            name="userName"
-            type="text"
-            value={this.state.userName}
-            onChange={this.handleInputChange}/>
-        </label> <br/> <br/>
-        <label>
-          Password:
-          <input
-            name="password"
-            type="password"
-            value={this.state.password}
-            onChange={this.handleInputChange}/>
-        </label> <br/> <br/>
-        <button type="submit">Login</button>
-      </form>
+      <Row>
+        <Col xs={8} md={8}>
+          <form>
+            <FieldGroup
+              key="username"
+              id="formControlsText"
+              type="text"
+              label="Username"
+              placeholder="Enter Username"
+              value={this.state.userName}
+              onChange={this.onUserNameChange}
+            />
+            <FieldGroup
+              key="password"
+              id="formControlsText"
+              type="password"
+              label="Password"
+              placeholder="Enter Password"
+              value={this.state.password}
+              onChange={this.onPasswordChange}
+            />
+            <Button type="submit" onSubmit={this.onSubmit}>Login</Button>
+          </form>
+        </Col>
+      </Row>
     )
   }
+}
+
+function FieldGroup({ id, label, help, ...props }) {
+  return (
+    <FormGroup controlId={id}>
+      <ControlLabel>{label}</ControlLabel>
+      <FormControl {...props} />
+      {help && <HelpBlock>{help}</HelpBlock>}
+    </FormGroup>
+  );
 }
