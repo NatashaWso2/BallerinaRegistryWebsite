@@ -1,0 +1,8 @@
+/dist/**
+/node_modules/**
+/lib/**
+/public/**
+/scripts/**
+/config/**
+/src/registerServiceWorker.js
+/src/index.js
