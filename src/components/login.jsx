@@ -18,10 +18,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { Row, Col, FormGroup, ControlLabel, FormControl, Button, HelpBlock } from 'react-bootstrap';
+import { login } from '../api-client';
 
 /**
  * Login component.
@@ -56,12 +56,7 @@ class Login extends React.Component {
             password,
         };
 
-        axios.post('http://staging.central.ballerina.io:8080/registry/login', data, {
-            withCredentials: true,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-        })
+        login(data)
             .then((response) => {
                 console.log(response);
                 const statusCode = response.status;
@@ -112,7 +107,7 @@ class Login extends React.Component {
         const { redirect, cliToken } = this.state;
         if (redirect) {
             return (<Redirect to={{
-                pathname: '/packages',
+                pathname: '/',
                 cliToken,
             }}
             />);
@@ -120,10 +115,10 @@ class Login extends React.Component {
         return (
             <Row>
                 <Col xs={8} md={8}>
-                    <form>
+                    <form onSubmit={this.onSubmit}>
                         <FieldGroup
                             key='username'
-                            id='formControlsText'
+                            id='username'
                             type='text'
                             label='Username'
                             placeholder='Enter Username'
@@ -132,14 +127,14 @@ class Login extends React.Component {
                         />
                         <FieldGroup
                             key='password'
-                            id='formControlsText'
+                            id='password'
                             type='password'
                             label='Password'
                             placeholder='Enter Password'
                             value={this.state.password}
                             onChange={this.onPasswordChange}
                         />
-                        <Button type='submit' onSubmit={this.onSubmit}>Login</Button>
+                        <Button type='submit'>Login</Button>
                     </form>
                 </Col>
             </Row>

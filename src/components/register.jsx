@@ -18,16 +18,16 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { Row, Col, FormGroup, ControlLabel, FormControl, Button, HelpBlock } from 'react-bootstrap';
+import { register } from '../api-client';
 
 /**
  * Component for registering a user.
  * @class Register
- * @extends {React.PureComponent}
+ * @extends {React.Component}
  */
-class Register extends React.PureComponent {
+class Register extends React.Component {
     /**
      * Creates an instance of Register.
      * @param {any} props Component properties.
@@ -36,21 +36,17 @@ class Register extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            familyName: '',
             givenName: '',
             userName: '',
             password: '',
             homeEmail: '',
-            workEmail: '',
             redirect: false,
         };
 
-        this.onFamilyNameChange = this.onFamilyNameChange.bind(this);
         this.onGivenNameChange = this.onGivenNameChange.bind(this);
         this.onUserNameChange = this.onUserNameChange.bind(this);
         this.onPasswordChange = this.onPasswordChange.bind(this);
         this.onHomeEmailChange = this.onHomeEmailChange.bind(this);
-        this.onWorkEmailChange = this.onWorkEmailChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -63,28 +59,20 @@ class Register extends React.PureComponent {
         e.preventDefault();
         console.log(this.state);
         const {
-            familyName,
             givenName,
             userName,
             password,
             homeEmail,
-            workEmail,
         } = this.state;
 
         const data = {
-            familyName,
             givenName,
             userName,
             password,
             homeEmail,
-            workEmail,
-
         };
 
-        axios.post('http://staging.central.ballerina.io:8080/registry/register', data, {
-            withCredentials: true,
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        })
+        register(data)
             .then((response) => {
                 const statusCode = response.status;
                 if (statusCode === 201) {
@@ -94,17 +82,6 @@ class Register extends React.PureComponent {
             .catch((error) => {
                 console.log(error);
             });
-    }
-
-    /**
-     * On family name changed.
-     * @param {any} e Event object.
-     * @memberof Register
-     */
-    onFamilyNameChange(e) {
-        this.setState({
-            familyName: e.target.value,
-        });
     }
 
     /**
@@ -152,17 +129,6 @@ class Register extends React.PureComponent {
     }
 
     /**
-     * On work email changed.
-     * @param {any} e Event object.
-     * @memberof Register
-     */
-    onWorkEmailChange(e) {
-        this.setState({
-            workEmail: e.target.value,
-        });
-    }
-
-    /**
      * Render the Register component.
      * @returns {React.ReactElement} The view.
      * @memberof Register
@@ -175,19 +141,10 @@ class Register extends React.PureComponent {
         return (
             <Row>
                 <Col xs={8} md={8}>
-                    <form>
-                        <FieldGroup
-                            key='family-name'
-                            id='formControlsText'
-                            type='text'
-                            label='Family Name'
-                            placeholder='Enter Family'
-                            value={this.state.familyName}
-                            onChange={this.onFamilyNameChange}
-                        />
+                    <form onSubmit={this.onSubmit}>
                         <FieldGroup
                             key='given-name'
-                            id='formControlsText'
+                            id='given-name'
                             type='text'
                             label='Name'
                             placeholder='Enter Name'
@@ -196,7 +153,7 @@ class Register extends React.PureComponent {
                         />
                         <FieldGroup
                             key='user-name'
-                            id='formControlsText'
+                            id='user-name'
                             type='text'
                             label='Username'
                             placeholder='Enter Username'
@@ -205,7 +162,7 @@ class Register extends React.PureComponent {
                         />
                         <FieldGroup
                             key='password'
-                            id='formControlsText'
+                            id='password'
                             type='password'
                             label='Password'
                             placeholder='Enter Password'
@@ -214,23 +171,14 @@ class Register extends React.PureComponent {
                         />
                         <FieldGroup
                             key='home-email'
-                            id='formControlsText'
+                            id='home-email'
                             type='text'
-                            label='Home Email'
-                            placeholder='Enter Home Email'
+                            label='Email'
+                            placeholder='Enter Email'
                             value={this.state.homeEmail}
                             onChange={this.onHomeEmailChange}
                         />
-                        <FieldGroup
-                            key='work-email'
-                            id='formControlsText'
-                            type='text'
-                            label='Work Email'
-                            placeholder='Enter Work Email'
-                            value={this.state.workEmail}
-                            onChange={this.onWorkEmailChange}
-                        />
-                        <Button type='submit' onSubmit={this.onSubmit}>Register</Button>
+                        <Button type='submit'>Register</Button>
                     </form>
                 </Col>
             </Row>

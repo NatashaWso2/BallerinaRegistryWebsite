@@ -18,8 +18,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import { validate } from '../api-client';
 
 /**
  * Component for an organization.
@@ -48,12 +48,7 @@ class OrgName extends React.Component {
      * @memberof OrgName
      */
     deletePkg(packageName, packageVersion) {
-        axios.get('http://staging.central.ballerina.io:8080/registry/validate', {
-            withCredentials: true,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-        })
+        validate()
             .then((response) => {
                 const accessTokenActive = response.data.active;
                 if (accessTokenActive === true) {
