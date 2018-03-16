@@ -18,9 +18,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import { validate } from '../api-client';
 
 /**
  * Component view a package.
@@ -91,12 +91,7 @@ class Package extends React.PureComponent {
      * @memberof Package
      */
     deletePkg() {
-        axios.get('http://staging.central.ballerina.io:8080/registry/validate', {
-            withCredentials: true,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-        })
+        validate()
             .then((response) => {
                 const accessTokenActive = response.data.active;
                 if (accessTokenActive === true) {

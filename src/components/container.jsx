@@ -17,25 +17,50 @@
  */
 
 import React from 'react';
-import { Grid } from 'react-bootstrap';
+import { Grid, Well, Row, Col, PageHeader } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 /**
  * Main container component.
  * @export
  * @class Container
- * @extends {React.PureComponent}
+ * @extends {React.Component}
  */
-class Container extends React.PureComponent {
+class Container extends React.Component {
+    /**
+     * Render the token view if present.
+     * @returns {React.ReactElement} The view.
+     * @memberof Container
+     */
+    renderTokenView() {
+        if (this.props.location.cliToken) {
+            return (
+                <Row>
+                    <Col xs={12} md={12}>
+                        <Well>
+                            <h4>This is your CLI token : {this.props.location.cliToken} </h4>
+                            Please copy and paste it in Settings.toml in your user repository (.ballerina/) as below
+                            [central] accessToken = cli-token generated
+                        </Well>
+                    </Col>
+                </Row>);
+        } else {
+            return (null);
+        }
+    }
+
     /**
      * Renders the main component.
      * @returns {React.ReactElement} The container view.
      * @memberof Container
      */
     render() {
+        const tokenView = this.renderTokenView();
         return (
             <Grid>
                 {this.props.children}
+                <PageHeader>Welcome to Ballerina Central</PageHeader>
+                {tokenView}
             </Grid>
         );
     }
@@ -43,10 +68,12 @@ class Container extends React.PureComponent {
 
 Container.propTypes = {
     children: PropTypes.arrayOf(PropTypes.instanceOf(React.ReactElement)),
+    location: PropTypes.instanceOf(PropTypes.object),
 };
 
 Container.defaultProps = {
     children: [],
+    location: undefined,
 };
 
 export default Container;

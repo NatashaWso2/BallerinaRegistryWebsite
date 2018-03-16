@@ -40,6 +40,7 @@ class Navbar extends React.Component {
         const cookies = new Cookies();
         cookies.remove('userLogged', { path: '/' });
         cookies.remove('accessTokenSH', { path: '/' });
+        window.location = '/';
     }
 
     /**
