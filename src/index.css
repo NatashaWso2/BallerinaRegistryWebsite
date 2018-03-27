@@ -1,5 +1,99 @@
+html {
+  height: 100%;
+}
 body {
+  height: 100%;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color:#585a5e;
+  background-image: url(/img/gray-bg.svg);
+  background-repeat: no-repeat;
+  background-position: bottom center;
+}
+
+.navbar{
+  background-color: #585a5e;
+  border: none;
+  box-shadow: none;
+  background-image: none;
+}
+.nav li a{
+  color: #f4f4f5 !important;
+}
+.navbar-brand{
+  color: #f4f4f5;
+  font-size: 2.2rem;
+  line-height: 24px;
+  padding: 15px 0px;
+}
+
+.bSearchForm input{
+  padding: 2.5rem;
+  margin-top: 2rem;
+}
+
+.top-line{
+  border-top: 15px solid #3ad1ca;
+}
+
+.page-header{
+  border: none;
+}
+
+.bSlogan{
+  color:#d9d9db;
+}
+
+.bCentralLogo{
+  font-size: 5.3rem;
+}
+.bCentralLogo:hover{
+  text-decoration: none;
+  color: #3ad1ca;
+}
+.bCentralLogo img{
+  height: 4rem;
+  vertical-align: baseline;
+}
+
+.link{
+  color: #3ad1ca;
+}
+
+.list-item{
+  padding: 1rem 0rem;
+  border-top: 1px solid #d9d9db;
+  margin: 1.5rem 0rem;
+}
+.list-item:first-child{
+  border-bottom: none;
+}
+.list-item:last-child{
+  border-bottom: 1px solid #d9d9db;
+}
+.list-title{
+  display: block;
+  margin: 10px 0px;
+}
+.list-title:after{
+  content: '';
+  clear: both;
+  display: block;
+}
+.list-title h5{
+  color: #3ad1ca;
+  font-weight: bold;
+  font-size: 1.7rem;
+  margin: 0px;
+}
+
+.box-container{
+  background-color: #fff;
+  padding: 4rem;
+}
+.box-container h2{
+  margin: 0px;
+  font-size: 2.4rem;
+  font-weight: 100;
 }

@@ -18,7 +18,10 @@
 
 import React from 'react';
 import Cookies from 'universal-cookie';
-import { Nav as RSNav, Navbar as RSNavbar, NavItem as RSNavItem } from 'react-bootstrap';
+import {
+    Nav as RSNav, Navbar as RSNavbar, NavItem as RSNavItem,
+    Grid as RSGrid, Row as RSRow, Col as RSCol,
+} from 'react-bootstrap';
 
 /**
  * Navigation bar component.
@@ -49,21 +52,23 @@ class Navbar extends React.Component {
      */
     renderLoggedOutNavBar() {
         return (
-            <RSNavbar>
-                <RSNavbar.Header>
-                    <RSNavbar.Brand>
-                        <a href='/'>Ballerina Central</a>
-                    </RSNavbar.Brand>
-                </RSNavbar.Header>
-                <RSNav pullRight>
-                    <RSNavItem eventKey={1} href='/register'>
-                        Register
-                    </RSNavItem>
-                    <RSNavItem eventKey={2} href='/login'>
-                        Login
-                    </RSNavItem>
-                </RSNav>
-            </RSNavbar>
+            <RSGrid fluid>
+                <RSRow className='show-grid'>
+                    <RSCol xs={6} xsOffset={6} className='top-line' />
+                </RSRow>
+                <RSRow>
+                    <RSNavbar fluid>
+                        <RSNav pullRight>
+                            <RSNavItem eventKey={1} href='/login'>
+                                Sign In
+                            </RSNavItem>
+                            <RSNavItem eventKey={2} href='/register'>
+                                Sign Up
+                            </RSNavItem>
+                        </RSNav>
+                    </RSNavbar>
+                </RSRow>
+            </RSGrid>
         );
     }
 

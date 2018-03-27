@@ -47,7 +47,7 @@ class App extends Component {
             <Router>
                 <div>
                     <NavBar />
-                    <Grid>
+                    <Grid fluid>
                         <Switch>
                             <Route exact path='/' component={Container} />
                             <Route path='/login' component={Login} />
