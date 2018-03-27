@@ -17,7 +17,7 @@
  */
 
 import React from 'react';
-import { Grid, Well, Row, Col, PageHeader } from 'react-bootstrap';
+import { Well, Row, Col, PageHeader, FormGroup, FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 /**
@@ -56,13 +56,152 @@ class Container extends React.Component {
      */
     render() {
         const tokenView = this.renderTokenView();
-        return (
-            <Grid>
-                {this.props.children}
-                <PageHeader>Welcome to Ballerina Central</PageHeader>
-                {tokenView}
-            </Grid>
-        );
+        return ([
+            <Row>
+                <Col xs={3}>
+                    <p className='navbar-brand' href='#'>Cloud Native Programming Language <br />
+                        &amp; Integration Framework
+                    </p>
+                </Col>
+            </Row>,
+            <Row>
+                <Col xs={6}>
+                    {this.props.children}
+                    <PageHeader>
+                        <a className='bCentralLogo link' href='#s'>
+                            <img src='/img/logo.svg' alt='Ballerina' />central
+                        </a>
+                    </PageHeader>
+                    {tokenView}
+                </Col>
+            </Row>,
+            <Row>
+                <Col xs={6}>
+                    <h2 className='bSlogan'>
+                        Discover packages of reusable code <br /> and assemble them in powerful ways
+                    </h2>
+                    <a className='link' href='#s'>
+                        SEARCH HUNDREDS OF PACKAGES NOW &gt;
+                    </a>
+                </Col>
+                <Col xs={4} xsOffset={2}>
+                    <form>
+                        <FormGroup
+                            className='bSearchForm'
+                            controlId='bSearchForm'
+                        >
+                            <FormControl
+                                type='text'
+                            />
+                        </FormGroup>
+                    </form>
+                </Col>
+            </Row>,
+            <Row>
+                <Col xs={6}>
+                    <div className='popular box-container'>
+                        <h2>Popular Packages</h2>
+                        <div className='listing'>
+                            <div className='list-item'>
+                                <div className='list-title'>
+                                    <h5 className='pull-left'>ballerina/io</h5>
+                                    <span className='pull-right'>version: 1.2.5</span>
+                                </div>
+                                <p>
+                                    Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse Lorem
+                                    ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                                    euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                                </p>
+                            </div>
+                            <div className='list-item'>
+                                <div className='list-title'>
+                                    <h5 className='pull-left'>ballerina/io</h5>
+                                    <span className='pull-right'>version: 1.2.5</span>
+                                </div>
+                                <p>
+                                    Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse Lorem
+                                    ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                                    euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                                </p>
+                            </div>
+                            <div className='list-item'>
+                                <div className='list-title'>
+                                    <h5 className='pull-left'>ballerina/io</h5>
+                                    <span className='pull-right'>version: 1.2.5</span>
+                                </div>
+                                <p>
+                                    Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse Lorem
+                                    ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                                    euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                                </p>
+                            </div>
+                            <div className='list-item'>
+                                <div className='list-title'>
+                                    <h5 className='pull-left'>ballerina/io</h5>
+                                    <span className='pull-right'>version: 1.2.5</span>
+                                </div>
+                                <p>
+                                    Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse Lorem
+                                    ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                                    euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </Col>
+                <Col xs={6}>
+                    <div className='recent box-container'>
+                        <h2>Recently Updated</h2>
+                        <div className='listing'>
+                            <div className='list-item'>
+                                <div className='list-title'>
+                                    <h5 className='pull-left'>ballerina/io</h5>
+                                    <span className='pull-right'>version: 1.2.5</span>
+                                </div>
+                                <p>
+                                    Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse Lorem
+                                    ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                                    euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                                </p>
+                            </div>
+                            <div className='list-item'>
+                                <div className='list-title'>
+                                    <h5 className='pull-left'>ballerina/io</h5>
+                                    <span className='pull-right'>version: 1.2.5</span>
+                                </div>
+                                <p>
+                                    Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse Lorem
+                                    ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                                    euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                                </p>
+                            </div>
+                            <div className='list-item'>
+                                <div className='list-title'>
+                                    <h5 className='pull-left'>ballerina/io</h5>
+                                    <span className='pull-right'>version: 1.2.5</span>
+                                </div>
+                                <p>
+                                    Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse Lorem
+                                    ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                                    euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                                </p>
+                            </div>
+                            <div className='list-item'>
+                                <div className='list-title'>
+                                    <h5 className='pull-left'>ballerina/io</h5>
+                                    <span className='pull-right'>version: 1.2.5</span>
+                                </div>
+                                <p>
+                                    Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse Lorem
+                                    ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                                    euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </Col>
+            </Row>,
+        ]);
     }
 }
 
