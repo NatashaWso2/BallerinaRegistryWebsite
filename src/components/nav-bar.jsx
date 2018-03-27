@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * Copyright (c) 2018, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  *
@@ -22,7 +23,7 @@ import {
     Nav as RSNav, Navbar as RSNavbar, NavItem as RSNavItem,
     Grid as RSGrid, Row as RSRow, Col as RSCol,
 } from 'react-bootstrap';
-
+import { login } from '../api-client';
 /**
  * Navigation bar component.
  */
@@ -33,7 +34,12 @@ class Navbar extends React.Component {
      */
     constructor(props) {
         super(props);
+        this.state = {
+          username:""
+        };
         this.logout = this.logout.bind(this);
+        this.getParameterByName = this.getParameterByName.bind(this);
+        this.uuidv4 = this.uuidv4.bind(this);
     }
 
     /**
@@ -46,11 +52,72 @@ class Navbar extends React.Component {
         window.location = '/';
     }
 
-    /**
+  /**
+   * Generate UUID
+   */
+  uuidv4() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+  /**
+   * Get query parameter value by name
+   * @param name query param name
+   * @param url base URL
+   * @returns {*}
+   */
+    getParameterByName(name, url) {
+      if (!url) {
+        url = window.location.href;
+      }
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+      if (!results) {
+        return null;
+      }
+      if (!results[2]) {
+        return '';
+      }
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    componentDidMount() {
+      const href = window.location.href;
+      const code  = this.getParameterByName("code", href);
+      if (code != null) {
+        const codeJson = {"code": code};
+        login(codeJson)
+          .then((response) => {
+            if (response.status == 200) {
+              let data = response.data;
+              let username;
+              if (data.name == "null") {
+                username = data["common-attr"];
+              } else {
+                username = data.name;
+              }
+              const cookies = new Cookies();
+              cookies.set('userLogged', this.state.userName, { path: '/' });
+              this.setState({
+                username: username
+              });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    }
+  /**
      * Rendering the logged out navigation bar.
      * @returns {React.ReactElement} The view.
      */
     renderLoggedOutNavBar() {
+      const url = `${process.env.IDENTITY_URL}/oauth2/authorize?fidp=github&scope=openid&response_type=code&redirect_uri=
+                   ${process.env.WEBSITE_URL}&nonce=${this.uuidv4()}&client_id=${process.env.CLIENT_ID}`;
         return (
             <RSGrid fluid>
                 <RSRow className='show-grid'>
@@ -59,10 +126,10 @@ class Navbar extends React.Component {
                 <RSRow>
                     <RSNavbar fluid>
                         <RSNav pullRight>
-                            <RSNavItem eventKey={1} href='/login'>
+                            <RSNavItem eventKey={1} href={signInURL}>
                                 Sign In
                             </RSNavItem>
-                            <RSNavItem eventKey={2} href='/register'>
+                            <RSNavItem eventKey={2} href={signInURL}>
                                 Sign Up
                             </RSNavItem>
                         </RSNav>
@@ -78,23 +145,25 @@ class Navbar extends React.Component {
      * @returns {React.ReactElement} The view.
      */
     renderLoggedInNavBar(userLogged) {
-        return (
-            <RSNavbar>
-                <RSNavbar.Header>
-                    <RSNavbar.Brand>
-                        <a href='/'>Ballerina Central</a>
-                    </RSNavbar.Brand>
-                </RSNavbar.Header>
-                <RSNav pullRight>
-                    <RSNavItem eventKey={1} href='#'>
-                        Username: {userLogged}
-                    </RSNavItem>
-                    <RSNavItem eventKey={2} href='#' onClick={this.logout}>
-                        Signout
-                    </RSNavItem>
-                </RSNav>
+      return (
+        <RSGrid fluid>
+          <RSRow className='show-grid'>
+            <RSCol xs={6} xsOffset={6} className='top-line' />
+          </RSRow>
+          <RSRow>
+            <RSNavbar fluid>
+              <RSNav pullRight>
+                <RSNavItem eventKey={1} href='#'>
+                  {userLogged}
+                </RSNavItem>
+                <RSNavItem eventKey={2} href='#' onClick={this.logout}>
+                  Signout
+                </RSNavItem>
+              </RSNav>
             </RSNavbar>
-        );
+          </RSRow>
+        </RSGrid>
+      );
     }
 
     /**
@@ -102,13 +171,10 @@ class Navbar extends React.Component {
      * @returns {React.ReactElement} The view.
      */
     render() {
-        const cookies = new Cookies();
-        const userLogged = cookies.get('userLogged');
-
-        if (userLogged === undefined) {
+        if (this.state.username == undefined || this.state.username.trim() == "" ) {
             return this.renderLoggedOutNavBar();
         } else {
-            return this.renderLoggedInNavBar(userLogged);
+            return this.renderLoggedInNavBar(this.state.username);
         }
     }
 }

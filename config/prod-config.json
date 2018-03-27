@@ -1,5 +1,8 @@
 {
     "process.env": {
-        "WEB_API_URL": "\"https://0.0.0.0:7070\""
+        "WEB_API_URL": "\"https://localhost:7070\"",
+        "IDENTITY_URL": "\"https://identity-dev.ballerina.io\"",
+        "WEBSITE_URL": "\"https://0.0.0.0:8080\"",
+        "CLIENT_ID": "\"dx0y1wpa2ttXAmo1ftgmMZZ6kBoa\""
     }
 }
