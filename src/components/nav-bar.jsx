@@ -19,10 +19,7 @@
 
 import React from 'react';
 import Cookies from 'universal-cookie';
-import {
-    Nav as RSNav, Navbar as RSNavbar, NavItem as RSNavItem,
-    Grid as RSGrid, Row as RSRow, Col as RSCol,
-} from 'react-bootstrap';
+import { Nav as RSNav, Navbar as RSNavbar, NavItem as RSNavItem, Row as RSRow } from 'react-bootstrap';
 import { login } from '../api-client';
 import urlencode from 'urlencode';
 
@@ -122,23 +119,18 @@ class Navbar extends React.Component {
       const url = `${process.env.IDENTITY_URL}/oauth2/authorize?fidp=github&scope=openid&response_type=code&redirect_uri=
                    ${encodeWebsiteURL}&nonce=${this.uuidv4()}&client_id=${process.env.CLIENT_ID}`;
         return (
-            <RSGrid fluid>
-                <RSRow className='show-grid'>
-                    <RSCol xs={6} xsOffset={6} className='top-line' />
-                </RSRow>
-                <RSRow>
-                    <RSNavbar fluid>
-                        <RSNav pullRight>
-                            <RSNavItem eventKey={1} href={url}>
-                                Sign In
-                            </RSNavItem>
-                            <RSNavItem eventKey={2} href={url}>
-                                Sign Up
-                            </RSNavItem>
-                        </RSNav>
-                    </RSNavbar>
-                </RSRow>
-            </RSGrid>
+          <RSRow>
+            <RSNavbar fluid>
+              <RSNav pullRight>
+                <RSNavItem eventKey={1} href={url}>
+                  Sign In
+                </RSNavItem>
+                <RSNavItem eventKey={2} href={url}>
+                  Sign Up
+                </RSNavItem>
+              </RSNav>
+            </RSNavbar>
+          </RSRow>
         );
     }
 
@@ -149,10 +141,6 @@ class Navbar extends React.Component {
      */
     renderLoggedInNavBar(userLogged) {
       return (
-        <RSGrid fluid>
-          <RSRow className='show-grid'>
-            <RSCol xs={6} xsOffset={6} className='top-line' />
-          </RSRow>
           <RSRow>
             <RSNavbar fluid>
               <RSNav pullRight>
@@ -165,7 +153,6 @@ class Navbar extends React.Component {
               </RSNav>
             </RSNavbar>
           </RSRow>
-        </RSGrid>
       );
     }
 

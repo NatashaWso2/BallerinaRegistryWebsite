@@ -75,7 +75,7 @@ class Container extends React.Component {
                     {tokenView}
                 </Col>
             </Row>,
-            <Row>
+            <Row className='bSloganContainer'>
                 <Col xs={6}>
                     <h2 className='bSlogan'>
                         Discover packages of reusable code <br /> and assemble them in powerful ways
