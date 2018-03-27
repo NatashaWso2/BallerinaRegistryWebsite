@@ -11,6 +11,9 @@ body {
   background-repeat: no-repeat;
   background-position: bottom center;
 }
+.content-wrapper{
+  margin: 0rem 10rem;
+}
 
 .navbar{
   background-color: #585a5e;
@@ -31,6 +34,7 @@ body {
 .bSearchForm input{
   padding: 2.5rem;
   margin-top: 2rem;
+  border-radius: 0px !important;
 }
 
 .top-line{
@@ -41,6 +45,9 @@ body {
   border: none;
 }
 
+.bSloganContainer{
+  margin-bottom: 5rem;
+}
 .bSlogan{
   color:#d9d9db;
 }

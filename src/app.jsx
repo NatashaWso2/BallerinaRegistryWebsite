@@ -19,7 +19,7 @@
 
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Grid } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 
 import './App.css';
 
@@ -45,9 +45,12 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <div>
-                    <NavBar />
-                    <Grid fluid>
+                <Grid fluid>
+                    <Row>
+                        <Col xs={6} xsOffset={6} className='top-line' />
+                    </Row>
+                    <div className='content-wrapper'>
+                        <NavBar />
                         <Switch>
                             <Route exact path='/' component={Container} />
                             <Route path='/login' component={Login} />
@@ -59,8 +62,8 @@ class App extends Component {
                             </Switch>
                             <Route path='*' component={NotFound} />
                         </Switch>
-                    </Grid>
-                </div>
+                    </div>
+                </Grid>
             </Router>
         );
     }
