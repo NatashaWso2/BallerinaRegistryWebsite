@@ -24,6 +24,8 @@ import {
     Grid as RSGrid, Row as RSRow, Col as RSCol,
 } from 'react-bootstrap';
 import { login } from '../api-client';
+import urlencode from 'urlencode';
+
 /**
  * Navigation bar component.
  */
@@ -56,7 +58,7 @@ class Navbar extends React.Component {
    * Generate UUID
    */
   uuidv4() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c =>{
         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
       });
@@ -116,8 +118,9 @@ class Navbar extends React.Component {
      * @returns {React.ReactElement} The view.
      */
     renderLoggedOutNavBar() {
+      const encodeWebsiteURL = urlencode(process.env.WEBSITE_URL, "UTF-8");
       const url = `${process.env.IDENTITY_URL}/oauth2/authorize?fidp=github&scope=openid&response_type=code&redirect_uri=
-                   ${process.env.WEBSITE_URL}&nonce=${this.uuidv4()}&client_id=${process.env.CLIENT_ID}`;
+                   ${encodeWebsiteURL}&nonce=${this.uuidv4()}&client_id=${process.env.CLIENT_ID}`;
         return (
             <RSGrid fluid>
                 <RSRow className='show-grid'>
@@ -126,10 +129,10 @@ class Navbar extends React.Component {
                 <RSRow>
                     <RSNavbar fluid>
                         <RSNav pullRight>
-                            <RSNavItem eventKey={1} href={signInURL}>
+                            <RSNavItem eventKey={1} href={url}>
                                 Sign In
                             </RSNavItem>
-                            <RSNavItem eventKey={2} href={signInURL}>
+                            <RSNavItem eventKey={2} href={url}>
                                 Sign Up
                             </RSNavItem>
                         </RSNav>
